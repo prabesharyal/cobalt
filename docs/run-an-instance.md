@@ -18,7 +18,7 @@ if you need help with installing docker, follow *only the first step* of these t
     ```  
     i'm using `nano` in this example, it may not be available in your distro. you can use any other text editor.  
 
-3. copy and paste the [sample config from here](examples/docker-compose.example.yml) for either web or api instance (or both, if you wish) and edit it to your needs.  
+3. copy and paste the [sample config from here](https://github.com/wukko/cobalt/blob/current/docs/examples/docker-compose.example.yml) for either web or api instance (or both, if you wish) and edit it to your needs.  
     make sure to replace default URLs with your own or cobalt won't work correctly.  
 
 4. finally, start the cobalt container (from cobalt directory):
@@ -26,7 +26,7 @@ if you need help with installing docker, follow *only the first step* of these t
     docker compose up -d
     ```
 
-if you want your instance to support services that require authentication to view public content, create `cookies.json` file in the same directory as `docker-compose.yml`. example cookies file [can be found here](examples/cookies.example.json).
+if you want your instance to support services that require authentication to view public content, create `cookies.json` file in the same directory as `docker-compose.yml`. example cookies file [can be found here](https://github.com/wukko/cobalt/blob/current/docs/examples/cookies.example.json).
 
 cobalt package will update automatically thanks to watchtower.
 
@@ -59,31 +59,8 @@ sudo service nscd start
 | `CORS_URL`            | not used  | `https://cobalt.tools/` | cross-origin resource sharing url. api will be available only from this url if `CORS_WILDCARD` is set to `0`. |
 | `COOKIE_PATH`         | not used  | `/cookies.json`         | path for cookie file relative to main folder. |
 | `PROCESSING_PRIORITY` | not used  | `10`                    | changes `nice` value* for ffmpeg subprocess. available only on unix systems. |
-| `TIKTOK_DEVICE_INFO`  | ➖        | *see below*                    | device info (including `iid` and `device_id`) for tiktok functionality. required for tiktok to work. |
 
 \* the higher the nice value, the lower the priority. [read more here](https://en.wikipedia.org/wiki/Nice_(Unix)).
-
-#### TIKTOK_DEVICE_INFO
-you need to get your own device info for tiktok functionality to work. this can be done by proxying the app through any request-intercepting proxy (such as [mitmproxy](https://mitmproxy.org)). you need to disable ssl pinning to see requests. there will be no assistance provided by cobalt for this.
-
-example config (replace **ALL** values with ones you got from mitm):
-```
-'{
-    "iid": "<install_id here>",
-    "device_id": "<device_id here>",
-    "channel": "googleplay",
-    "app_name": "musical_ly",
-    "version_code": "310503",
-    "device_platform": "android",
-    "device_type": "Redmi+7",
-    "os_version": "13"
-}'
-```
-
-you can compress the json to save space. if you're using a `.env` file then the line would would look like this (***note the quotes***):
-```
-TIKTOK_DEVICE_INFO='{"iid":"<install_id here>","device_id":"<device_id here>","channel":"googleplay","app_name":"musical_ly","version_code":"310503","device_platform":"android","device_type":"Redmi+7","os_version":"13"}'
-```
 
 ### variables for web
 | variable name        | default              | example                 | description                                                                           |

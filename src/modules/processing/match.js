@@ -83,8 +83,10 @@ export default async function(host, patternMatch, url, lang, obj) {
                     id: patternMatch.id
                 });
                 break;
+            case "douyin":
             case "tiktok":
                 r = await tiktok({
+                    host: host,
                     postId: patternMatch.postId,
                     id: patternMatch.id,
                     fullAudio: obj.isTTFullAudio,
